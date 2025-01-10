@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+<div class="card my-4">
+    <div class="card-body">
+        <h1 class="card-title">{{ article.title }}</h1>
+        <h6 class="card-subtitle mb-2 text-muted">{{ article.date }}</h6>
+        {% if article.image %}
+        <img src="{{ url_for('static', filename=article.image) }}" alt="Article Image" class="img-thumbnail mb-3" style="max-width: 300px;">
+        {% endif %}
+        <div class="card-text">{{ article.content | nl2br }}</div>
+    </div>
+</div>
+
+<h2>Comments</h2>
+<ul class="list-group mb-4">
+    {% for comment in comments %}
+    <li class="list-group-item">
+        <p>{{ comment.content }}</p>
+        <small>{{ comment.date }} by {{ comment.author.username }}</small>
+    </li>
+    {% endfor %}
+</ul>
+
+{% if session.logged_in %}
+<h3>Add a Comment</h3>
+<form method="POST" action="{{ url_for('add_comment', article_id=article.id) }}">
+    <div class="form-group">
+        <textarea name="content" class="form-control" rows="8" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Comment</button>
+</form>
+{% endif %}
+{% endblock %}

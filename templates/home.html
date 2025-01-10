@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1 class="my-4">Welcome to My Blog</h1>
+
+{% if session.logged_in %}
+    <h2 class="my-4">Hello, {{ session.username }}!</h2>
+{% endif %}
+
+<div class="row">
+    {% for article in articles.items %}
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ article.title }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ article.date }}</h6>
+                <p class="card-text">{{ article.content | truncate(20) | nl2br }}</p>
+                <a href="{{ url_for('article', id=article.id) }}" class="btn btn-info btn-sm">View</a>
+                {% if session.user_id == article.author_id or session.role == 'admin' %}
+                <a href="{{ url_for('edit_article', id=article.id) }}" class="btn btn-warning btn-sm">Edit</a>
+                <form action="{{ url_for('delete_article', id=article.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        {% if articles.has_prev %}
+        <li class="page-item">
+            <a class="page-link" href="{{ url_for('home', page=articles.prev_num) }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% endif %}
+        {% for page_num in articles.iter_pages() %}
+        <li class="page-item {% if page_num == articles.page %}active{% endif %}">
+            <a class="page-link" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+        </li>
+        {% endfor %}
+        {% if articles.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="{{ url_for('home', page=articles.next_num) }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endblock %}

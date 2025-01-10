@@ -1,0 +1,40 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+main {
+    padding: 20px;
+}
+
+article {
+    background-color: white;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+article h3 a {
+    color: #333;
+    text-decoration: none;
+}
+
+article h3 a:hover {
+    text-decoration: underline;
+}

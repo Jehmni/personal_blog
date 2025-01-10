@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<h1>Profile</h1>
+<div class="card mb-4">
+    <div class="card-body">
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        {% if user.bio %}
+        <p><strong>Bio:</strong> {{ user.bio }}</p>
+        {% endif %}
+        {% if user.profile_picture %}
+        <img src="{{ url_for('static', filename=user.profile_picture.split('static/', 1)[1]) }}" alt="Profile Picture" class="img-thumbnail" style="max-inline-size: 150px;">
+        {% else %}
+        <img src="{{ url_for('static', filename='default_profile_picture.png') }}" alt="Default Profile Picture" class="img-thumbnail" style="max-inline-size: 150px;">
+        {% endif %}
+        <a href="{{ url_for('update_profile') }}" class="btn btn-primary mt-3">Update Profile</a>
+    </div>
+</div>
+
+<h2>Your Articles</h2>
+<div class="card mb-4">
+    <div class="card-body">
+        <ul class="list-group">
+            {% for article in articles %}
+            <li class="list-group-item">
+                <strong>{{ article.title }}</strong><br>
+                <a href="{{ url_for('article', id=article.id) }}" class="btn btn-info btn-sm">View</a>
+                <a href="{{ url_for('edit_article', id=article.id) }}" class="btn btn-warning btn-sm">Edit</a>
+                <form action="{{ url_for('delete_article', id=article.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

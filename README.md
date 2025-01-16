@@ -39,11 +39,11 @@ Delete Article: Remove articles you no longer want to keep.
 Add Comment: Engage with articles by adding comments.
 Update Profile: Update your profile information, including your bio and profile picture.
 
-Contributing
+Contributing: 
 Contributions are welcome! Please fork the repository and submit a pull request with your changes.
 
-License
+License: 
 This project is licensed under the MIT License. See the LICENSE file for more details.
 
-Contact
+Contact: 
 If you have any questions or feedback, don't hesitate to get in touch with me on LinkedIn: www.linkedin.com/in/ofonime-eset.
